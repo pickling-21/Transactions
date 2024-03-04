@@ -1,0 +1,23 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Install a list of packages
+    apt:
+      name: '{{ packages }}'
+    vars:
+      packages:
+      - python3
+      - nginx
+  - name: Execute Python Script exploit.py
+    ansible.builtin.shell:
+      argv:
+      - python3
+      - ../ex00/exploit.py
+  - name: Execute Python Script consumer.py
+    ansible.builtin.command:
+      argv:
+      - python3
+      - ../ex01/consumer.py
+      - -e
+      - '4815162342'
+      - '3133780085'
